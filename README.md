@@ -16,6 +16,8 @@ Simply click on the [`bookmarklet.js`](https://github.com/aziraphale/clean-url/b
 
 Bookmarklets work best if they're in your bookmarks bar, but that's purely a convenience thing - feel free to save it anywhere!
 
+Note that I only personally test this on **Google Chrome**, but it doesn't do anything too fancy so recent versions of any browsers should work ([including IE8+](http://caniuse.com/#feat=queryselector)). If it doesn't work anywhere, open an issue here and hopefully someone (me or otherwise) can find a fix for it!
+
 History
 -------
 
