@@ -18,6 +18,13 @@ Bookmarklets work best if they're in your bookmarks bar, but that's purely a con
 
 Note that I only personally test this on **Google Chrome**, but it doesn't do anything too fancy so recent versions of any browsers should work ([including IE8+](http://caniuse.com/#feat=queryselector)). If it doesn't work anywhere, open an issue here and hopefully someone (me or otherwise) can find a fix for it!
 
+Updates
+-------
+
+Since bookmarklets don't/can't really auto-update themselves, I suggest you watch this GitHub project so that you get a notification when anything gets updated!
+
+I *could* make this into a fully-fledged browser extension, but that's a crap-ton more maintenance and really ought to be unnecessary for a simple little script like this...
+
 History
 -------
 
