@@ -1,0 +1,1 @@
+javascript:var u; try { u=document.querySelector("link[rel=canonical]").href; } catch (e) {} if(u){ if(prompt("Canonical URL: - Press OK to navigate", u)) { window.location=u; } else { /* Chrome goes silly if I don't do something here */ u=null; } } else { prompt("No canonical URL found. Displaying current URL:", window.location.href); }
