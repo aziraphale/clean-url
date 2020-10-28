@@ -14,18 +14,15 @@ u = u
     .replace(/([?&])((utm_(source|medium|term|content|campaign))(=.*?)?(&|$))+/g, '$1')
     .replace(/[?&]$/g, '');
 
-if (canon) {
-    if (prompt("Canonical URL: - Press OK to navigate", u)) {
-        loc.replace(u);
-    } else {
-        /* Chrome goes silly if I don't do something here */
-        u = null;
-    }
+if (prompt(
+    (
+        canon ?
+        "Canonical URL:" :
+        "No rel=canonical tag found. Displaying (cleaned) current URL:"
+    ) + " - Press OK to navigate"
+    , u)) {
+    loc.replace(u);
 } else {
-    if (prompt("No rel=canonical tag found. Displaying (cleaned) current URL: - Press OK to navigate", u)) {
-        loc.replace(u);
-    } else {
-        /* Chrome goes silly if I don't do something here */
-        u = null;
-    }
+    /* Chrome goes silly if I don't do something here */
+    u = null;
 }
