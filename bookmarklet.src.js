@@ -1,22 +1,31 @@
 // javascript:
 
-var u;
+var u, loc=window.location, canon=false;
 try {
     u = document.querySelector("link[rel=canonical]").href;
-} catch (e) {}
+    canon = true;
+} catch (e) {
+    u = loc.href;
+}
 
-if (u) {
+/* Some sites (Patreon) actually include tracking spam in the canonical URL! So we have to strip out these args whether the URL came from the `link[rel=canonical]` tag or from `window.location`... */
+/* Lack of PCRE lookahead/behind assertions makes me sad :( */
+u = u
+    .replace(/([?&])((utm_(source|medium|term|content|campaign))(=.*?)?(&|$))+/g, '$1')
+    .replace(/[?&]$/g, '');
+
+if (canon) {
     if (prompt("Canonical URL: - Press OK to navigate", u)) {
-        window.location = u;
+        loc.replace(u);
     } else {
         /* Chrome goes silly if I don't do something here */
         u = null;
     }
 } else {
-    u = window.location.href;
-    /* Lack of PCRE lookahead/behind assertions makes me sad :( */
-    u = u
-        .replace(/([?&])((utm_(source|medium|term|content|campaign))(=?.*?)(&|$))+/g, '$1')
-        .replace(/[?&]$/g, '');
-    prompt("No canonical URL found. Displaying current URL:", u);
+    if (prompt("No rel=canonical tag found. Displaying (cleaned) current URL: - Press OK to navigate", u)) {
+        loc.replace(u);
+    } else {
+        /* Chrome goes silly if I don't do something here */
+        u = null;
+    }
 }
