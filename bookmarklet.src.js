@@ -10,9 +10,14 @@ try {
 
 /* Some sites (Patreon) actually include tracking spam in the canonical URL! So we have to strip out these args whether the URL came from the `link[rel=canonical]` tag or from `window.location`... */
 /* Lack of PCRE lookahead/behind assertions makes me sad :( */
-u = u
-    .replace(/([?&])((utm_(source|medium|term|content|campaign))(=.*?)?(&|$))+/g, '$1')
-    .replace(/[?&]$/g, '');
+u = u.replace(/([?&])((utm_(source|medium|term|content|campaign))(=.*?)?(&|$))+/g, '$1');
+
+/* Site-specific replacements */
+if (loc.hostname.match(/(^|\.)patreon\.com$/i)) {
+    u = u.replace(/([?&])((token)(=.*?)?(&|$))+/g, '$1');
+}
+
+u = u.replace(/[?&]$/g, '');
 
 if (prompt(
     (
