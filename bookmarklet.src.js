@@ -2,6 +2,11 @@ var u, loc=window.location, canon=false;
 
 // Fetch this page's <link rel="canonical" href="..."> element if it has one,
 //  falling back to the page's `window.location.href` property.
+// TODO theguardian.com doesn't have a `link[rel=canonical]`` tag, but it looks
+//      like their Facebook/OpenGraph `<meta property="og:url"
+//      content="http://www.theguardian.com/..."/>` tag may be a good
+//      alternative. That's something that other sites may also use, with or
+//      without tracking spam...
 try {
     u = document.querySelector("link[rel=canonical]").href;
     canon = true;
@@ -21,8 +26,10 @@ try {
 //  URL!
 // So we have to strip out these args whether the URL came from the
 //  `link[rel=canonical]` tag or from `window.location`...
+// `CMP` is used by theguardian.com in links from emails. Don't know if it's
+//  from a third-party service or a Guardian-specific argument.
 // Lack of PCRE lookahead/behind assertions makes me sad :(
-u = u.replace(/([?&])((utm_(source|medium|term|content|campaign))(=.*?)?(&|$))+/g, '$1');
+u = u.replace(/([?&])((utm_(source|medium|term|content|campaign)|CMP)(=.*?)?(&|$))+/g, '$1');
 
 // Site-specific replacements.
 if (loc.hostname.match(/(^|\.)patreon\.com$/i)) {
